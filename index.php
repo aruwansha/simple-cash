@@ -25,7 +25,7 @@ $simpanan = $ambilSimpanan->fetch_array()['nominal'];
 
 <section>
     <div class="container">
-        <h1>Nb:</h1>
+        <h1>Cara Penggunaan:</h1>
         <ol class="list">
             <li><b><u>Catat Pendapatan</u></b></li>
             <p>Isi nominal pada kedua field <strong>Pemasukkan</strong> dan <strong>Pengeluaran/Simpanan</strong> lalu tekan tombol submit</p>

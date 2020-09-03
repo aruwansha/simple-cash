@@ -13,14 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $saldoAkhir = $saldoSekarang['total_saldo'] + $total;
         $storeSaldo = mysqli_query($connection, "UPDATE saldo SET total_saldo='$saldoAkhir' WHERE id='1'");
     } else if ($_POST['masuk'] == null && !$_POST['keluar'] == null) {
-        $pemasukkan = 0;
         $pengeluaran = $_POST['keluar'];
         $storePengeluaran = mysqli_query($connection, "INSERT INTO pengeluaran (nominal) 
                                             VALUES ('$pengeluaran')") or die(mysqli_error($connection));
-        $total = $pemasukkan - $pengeluaran;
         $ambilSaldo = mysqli_query($connection, "SELECT * FROM saldo WHERE id=1") or die(mysqli_error($connection));
         $saldoSekarang = $ambilSaldo->fetch_array();
-        $saldoAkhir = $saldoSekarang['total_saldo'] + $total;
+        $saldoAkhir = $saldoSekarang['total_saldo'] - $pengeluaran;
         $storeSaldo = mysqli_query($connection, "UPDATE saldo SET total_saldo='$saldoAkhir' WHERE id='1'");
     }
 } else { }
