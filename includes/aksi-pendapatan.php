@@ -7,7 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $total = $pemasukkan - $simpanan;
         $storePendapatan = mysqli_query($connection, "INSERT INTO pendapatan (pemasukkan, simpanan, total) 
                                         VALUES ('$pemasukkan', '$simpanan', '$total')") or die(mysqli_error($connection));
-        $storeSimpanan = mysqli_query($connection, "UPDATE simpanan SET nominal='$simpanan' WHERE id=1");
+        $ambilSimpanan = mysqli_query($connection, "SELECT * FROM simpanan WHERE id=1") or die(mysqli_error($connection));
+        $simpananSekarang = $ambilSimpanan->fetch_array();
+        $simpananAkhir = $simpananSekarang['nominal'] + $simpanan;
+        $storeSimpanan = mysqli_query($connection, "UPDATE simpanan SET nominal='$simpananAkhir' WHERE id=1");
         $ambilSaldo = mysqli_query($connection, "SELECT * FROM saldo WHERE id=1") or die(mysqli_error($connection));
         $saldoSekarang = $ambilSaldo->fetch_array();
         $saldoAkhir = $saldoSekarang['total_saldo'] + $total;
