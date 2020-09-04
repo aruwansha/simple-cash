@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $saldoSekarang = $ambilSaldo->fetch_array();
         $saldoAkhir = $saldoSekarang['total_saldo'] + $total;
         $storeSaldo = mysqli_query($connection, "UPDATE saldo SET total_saldo='$saldoAkhir' WHERE id='1'");
-    } else if ($_POST['masuk'] == null && !$_POST['keluar'] == null) {
+    } else if (empty($_POST['masuk']) && !empty($_POST['keluar'])) {
         $pengeluaran = $_POST['keluar'];
         $storePengeluaran = mysqli_query($connection, "INSERT INTO pengeluaran (nominal) 
                                             VALUES ('$pengeluaran')") or die(mysqli_error($connection));
