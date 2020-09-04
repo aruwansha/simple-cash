@@ -1,23 +1,25 @@
 <?php
-include "includes/koneksi.php";
+require_once('includes/Database.php');
+require_once('includes/koneksi.php');
+require_once('includes/kas.php');
+$connection = new Database($host, $username, $password, $database);
+$kas = new Kas($connection);
+$simpananSekarang = $kas->tampilkanSimpanan()->fetch_object()->nominal;
+$saldoSekarang = $kas->tampilkanSaldo()->fetch_object()->total_saldo;
 include "navbar.php";
-$ambilSaldo = mysqli_query($connection, "SELECT * FROM saldo WHERE id=1") or die(mysqli_error($connection));
-$saldo = $ambilSaldo->fetch_array()['total_saldo'];
-$ambilSimpanan = mysqli_query($connection, "SELECT * FROM simpanan WHERE id=1") or die(mysqli_error($connection));
-$simpanan = $ambilSimpanan->fetch_array()['nominal'];
 ?>
 
 <section>
     <div class="container">
-        <h1>Saldo sekarang: Rp <?= number_format($saldo) ?></h1>
-        <h4>Simpanan: Rp <?= number_format($simpanan) ?></h4>
+        <h1>Saldo sekarang: Rp <?= number_format($saldoSekarang) ?></h1>
+        <h4>Simpanan: Rp <?= number_format($simpananSekarang) ?></h4>
         <div class="form">
-            <form action="includes/aksi-pendapatan.php" method="POST">
+            <form action="includes/kas-aksi.php" method="POST">
                 <label for="pemasukkan">Pemasukkan: </label><br>
                 <input type="number" name="masuk"><br>
                 <label for="pemasukkan">Pengeluaran/Simpanan: </label><br>
                 <input type="number" name="keluar"><br>
-                <button type="submit">Submit</button>
+                <button type="submit" name="submit">Submit</button>
             </form>
         </div>
     </div>

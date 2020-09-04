@@ -1,4 +1,6 @@
 <?php
-$connection = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($connection, 'db_kasiraw');
+$host = "localhost";
+$username = "root";
+$password = "" ;
+$database = "db_kas-oop";
 ?>

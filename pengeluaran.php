@@ -14,17 +14,17 @@
         <tbody>
             <?php
             $no = 1;
-            $sql = mysqli_query($connection, 'SELECT * FROM pengeluaran');
-            $cek = $sql->num_rows;
+            $pengeluaran = $kas->tampilkanPengeluaran();
+            $cek = $pengeluaran->num_rows;
             if ($cek < 1) {
                 echo "<td colspan='7' align='center' style='padding:10px;'>Data masih kosong</td>";
             }
-            while ($pengeluaran = $sql->fetch_array()) {
+            while ($data = $pengeluaran->fetch_array()) {
                 ?>
                 <tr>
                     <td><?= $no ?></td>
-                    <td><?= date('d F y', strtotime($pengeluaran['tanggal'])) ?></td>
-                    <td>Rp <?= number_format($pengeluaran['nominal']) ?></td>
+                    <td><?= date('d F y', strtotime($data['tanggal'])) ?></td>
+                    <td>Rp <?= number_format($data['nominal']) ?></td>
                 </tr>
             <?php $no = $no + 1;
             } ?>
